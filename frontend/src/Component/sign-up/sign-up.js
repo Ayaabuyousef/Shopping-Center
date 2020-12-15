@@ -16,6 +16,24 @@ class SignUp extends React.Component{
             confirmPassword:''
         }
     }
+    postdata = (event)=>{
+      event.preventDefault()
+      const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.state)
+      };
+      fetch('', requestOptions)
+          .then(response => response.json())
+          .then(data => {
+              console.log(data)
+              this.setState({ displayName:"",password:"",email:"",confirmPassword:"" })
+              localStorage.setItem('auth',data.token)
+          });
+}
+
+
+
     handleSubmit = async event => {
         event.preventDefault();
     
@@ -95,7 +113,8 @@ class SignUp extends React.Component{
             label='Confirm Password'
             required
           />
-          <Button type='submit'>SIGN UP</Button>
+          {/* <Button type='submit'>SIGN UP</Button> */}
+          <button onClick={this.postdata}>sign up</button>
         </form>
 
             </div>
